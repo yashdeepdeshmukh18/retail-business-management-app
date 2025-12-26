@@ -3,6 +3,13 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
 export default function BillingScreen() {
 
+  // dummy stock data (normally comes from backend)
+  const [stock, setStock] = useState([
+    { name: 'Cement Bag', quantity: 20 },
+    { name: 'Electric Wire', quantity: 30 },
+    { name: 'Paint Bucket', quantity: 10 }
+  ]);
+
   const [itemName, setItemName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [rate, setRate] = useState('');
@@ -13,29 +20,42 @@ export default function BillingScreen() {
       return;
     }
 
-    const itemTotal = Number(quantity) * Number(rate);
+    const qty = Number(quantity);
+    const price = Number(rate);
+
+    // reduce stock (simple logic)
+    const updatedStock = stock.map((stockItem) => {
+      if (stockItem.name === itemName) {
+        return {
+          ...stockItem,
+          quantity: stockItem.quantity - qty
+        };
+      }
+      return stockItem;
+    });
+
+    setStock(updatedStock);
 
     const newItem = {
       name: itemName,
-      quantity: quantity,
-      rate: rate,
-      total: itemTotal
+      quantity: qty,
+      rate: price,
+      total: qty * price
     };
 
     setItems([...items, newItem]);
 
-    // clear inputs
     setItemName('');
     setQuantity('');
     setRate('');
   };
 
   const calculateGrandTotal = () => {
-    let sum = 0;
+    let total = 0;
     items.forEach((item) => {
-      sum = sum + item.total;
+      total = total + item.total;
     });
-    return sum;
+    return total;
   };
 
   return (
@@ -47,7 +67,7 @@ export default function BillingScreen() {
         style={styles.input}
         value={itemName}
         onChangeText={setItemName}
-        placeholder="Item name"
+        placeholder="Use same name as stock"
       />
 
       <Text>Quantity</Text>
@@ -68,78 +88,62 @@ export default function BillingScreen() {
         placeholder="Rate"
       />
 
-      <Button title="Add Item" onPress={addItemToBill} />
+      <Button title="Add Item & Reduce Stock" onPress={addItemToBill} />
 
-      <View style={styles.billBox}>
+      <View style={styles.box}>
         <Text style={styles.subTitle}>Bill Items</Text>
-
         {items.map((item, index) => (
-          <View key={index} style={styles.itemRow}>
-            <Text>{item.name}</Text>
-            <Text>₹ {item.total}</Text>
-          </View>
+          <Text key={index}>
+            {item.name} - ₹{item.total}
+          </Text>
         ))}
       </View>
 
-      <View style={styles.totalBox}>
-        <Text>Grand Total</Text>
-        <Text style={styles.totalText}>₹ {calculateGrandTotal()}</Text>
+      <View style={styles.box}>
+        <Text style={styles.subTitle}>Remaining Stock</Text>
+        {stock.map((s, index) => (
+          <Text key={index}>
+            {s.name} : {s.quantity}
+          </Text>
+        ))}
       </View>
+
+      <Text style={styles.totalText}>
+        Grand Total: ₹ {calculateGrandTotal()}
+      </Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     padding: 15,
-    backgroundColor: '#efefef'
+    backgroundColor: '#eeeeee'
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10
   },
-
   subTitle: {
-    fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5
   },
-
   input: {
     borderWidth: 1,
-    borderColor: '#888',
+    borderColor: '#777',
     padding: 8,
     marginBottom: 8,
     backgroundColor: '#fff'
   },
-
-  billBox: {
-    marginTop: 15,
-    padding: 10,
-    backgroundColor: '#dcdcdc',
-
-    shadowColor: '#000',
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: 0.7,
-    shadowRadius: 1,
-    elevation: 4
+  box: {
+    marginTop: 10,
+    padding: 8,
+    backgroundColor: '#dcdcdc'
   },
-
-  itemRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 4
-  },
-
-  totalBox: {
-    marginTop: 15,
-    padding: 10,
-    backgroundColor: '#cfcfcf'
-  },
-
   totalText: {
+    marginTop: 15,
     fontSize: 16,
     fontWeight: 'bold'
   }
