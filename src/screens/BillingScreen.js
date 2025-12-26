@@ -3,21 +3,39 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
 export default function BillingScreen() {
 
-
   const [itemName, setItemName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [rate, setRate] = useState('');
-  const [total, setTotal] = useState(0);
+  const [items, setItems] = useState([]);
 
-  const calculateTotal = () => {
-    const qty = Number(quantity);
-    const price = Number(rate);
-
-    if (qty > 0 && price > 0) {
-      setTotal(qty * price);
-    } else {
-      setTotal(0);
+  const addItemToBill = () => {
+    if (itemName === '' || quantity === '' || rate === '') {
+      return;
     }
+
+    const itemTotal = Number(quantity) * Number(rate);
+
+    const newItem = {
+      name: itemName,
+      quantity: quantity,
+      rate: rate,
+      total: itemTotal
+    };
+
+    setItems([...items, newItem]);
+
+    // clear inputs
+    setItemName('');
+    setQuantity('');
+    setRate('');
+  };
+
+  const calculateGrandTotal = () => {
+    let sum = 0;
+    items.forEach((item) => {
+      sum = sum + item.total;
+    });
+    return sum;
   };
 
   return (
@@ -29,7 +47,7 @@ export default function BillingScreen() {
         style={styles.input}
         value={itemName}
         onChangeText={setItemName}
-        placeholder="Enter item name"
+        placeholder="Item name"
       />
 
       <Text>Quantity</Text>
@@ -38,7 +56,7 @@ export default function BillingScreen() {
         value={quantity}
         onChangeText={setQuantity}
         keyboardType="number-pad"
-        placeholder="Enter quantity"
+        placeholder="Quantity"
       />
 
       <Text>Rate</Text>
@@ -47,14 +65,25 @@ export default function BillingScreen() {
         value={rate}
         onChangeText={setRate}
         keyboardType="number-pad"
-        placeholder="Enter rate"
+        placeholder="Rate"
       />
 
-      <Button title="Calculate Total" onPress={calculateTotal} />
+      <Button title="Add Item" onPress={addItemToBill} />
+
+      <View style={styles.billBox}>
+        <Text style={styles.subTitle}>Bill Items</Text>
+
+        {items.map((item, index) => (
+          <View key={index} style={styles.itemRow}>
+            <Text>{item.name}</Text>
+            <Text>₹ {item.total}</Text>
+          </View>
+        ))}
+      </View>
 
       <View style={styles.totalBox}>
-        <Text>Total Amount:</Text>
-        <Text style={styles.totalText}>₹ {total}</Text>
+        <Text>Grand Total</Text>
+        <Text style={styles.totalText}>₹ {calculateGrandTotal()}</Text>
       </View>
     </View>
   );
@@ -62,24 +91,31 @@ export default function BillingScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
     padding: 15,
-    backgroundColor: '#ededed'
+    backgroundColor: '#efefef'
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 15
+    marginBottom: 10
   },
+
+  subTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5
+  },
+
   input: {
     borderWidth: 1,
-    borderColor: '#999',
+    borderColor: '#888',
     padding: 8,
-    marginBottom: 10,
+    marginBottom: 8,
     backgroundColor: '#fff'
   },
-  
-  totalBox: {
+
+  billBox: {
     marginTop: 15,
     padding: 10,
     backgroundColor: '#dcdcdc',
@@ -89,6 +125,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.7,
     shadowRadius: 1,
     elevation: 4
+  },
+
+  itemRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 4
+  },
+
+  totalBox: {
+    marginTop: 15,
+    padding: 10,
+    backgroundColor: '#cfcfcf'
   },
 
   totalText: {
