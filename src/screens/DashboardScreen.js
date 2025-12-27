@@ -40,6 +40,14 @@ export default function DashboardScreen({ navigation }) {
         />
         </View>
 
+        <View style={styles.btn}>
+            <Button
+                title="Transactions"
+                onPress={() => navigation.navigate("Transactions")}
+            />
+        </View>
+
+
     </View>
   );
 }

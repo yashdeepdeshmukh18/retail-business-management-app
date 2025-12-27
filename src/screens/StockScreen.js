@@ -1,31 +1,32 @@
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import Header from "../components/Header";
 import InfoBox from "../components/InfoBox";
 import ItemRow from "../components/ItemRow";
 
-const stockData = [
-  { id: "1", name: "Cement", qty: 20, rate: 320 },
-  { id: "2", name: "Paint", qty: 5, rate: 450 },
-];
-
 export default function StockScreen() {
+  const stockItems = [
+    { name: "Paint", qty: 5, rate: 200 },
+    { name: "Bulb", qty: 2, rate: 50 }, // low stock
+    { name: "Wire", qty: 1, rate: 100 }, // low stock
+  ];
+
+  const lowStockItems = stockItems.filter(item => item.qty < 3);
+
   return (
     <View style={styles.container}>
       <Header title="Stock" />
 
-      <InfoBox label="Total Items" value={stockData.length} />
+      <InfoBox label="Total Items" value={stockItems.length} />
+      <InfoBox label="Low Stock Items" value={lowStockItems.length} />
 
-      <FlatList
-        data={stockData}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <ItemRow
-            name={item.name}
-            qty={item.qty}
-            rate={item.rate}
-          />
-        )}
-      />
+      {stockItems.map((item, index) => (
+        <View key={index}>
+          <ItemRow name={item.name} qty={item.qty} rate={item.rate} />
+          {item.qty < 3 && (
+            <Text style={styles.warning}>Low stock – add to order list</Text>
+          )}
+        </View>
+      ))}
     </View>
   );
 }
@@ -33,5 +34,10 @@ export default function StockScreen() {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+  },
+  warning: {
+    color: "red",
+    fontSize: 12,
+    marginBottom: 6,
   },
 });
