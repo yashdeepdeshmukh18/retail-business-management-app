@@ -11,7 +11,7 @@ export default function Header({ title }) {
 const styles = StyleSheet.create({
   container: {
     padding: 12,
-    backgroundColor: "#dddddd",
+    backgroundColor: "#cccccc",
   },
   text: {
     fontSize: 18,
