@@ -6,6 +6,8 @@ import StockScreen from "./screens/StockScreen";
 import BillingScreen from "./screens/BillingScreen";
 import CustomerPendingScreen from "./screens/CustomerPendingScreen";
 import DealerScreen from "./screens/DealerScreen";
+import QuotationScreen from "./screens/QuotationScreen";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +23,8 @@ export default function AppNavigator() {
           component={CustomerPendingScreen}
         />
         <Stack.Screen name="Dealer" component={DealerScreen} />
+        <Stack.Screen name="Quotation" component={QuotationScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

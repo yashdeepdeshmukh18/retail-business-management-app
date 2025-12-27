@@ -32,6 +32,14 @@ export default function DashboardScreen({ navigation }) {
           onPress={() => navigation.navigate("Dealer")}
         />
       </View>
+
+      <View style={styles.btn}>
+        <Button
+            title="Create Quotation"
+            onPress={() => navigation.navigate("Quotation")}
+        />
+        </View>
+
     </View>
   );
 }
