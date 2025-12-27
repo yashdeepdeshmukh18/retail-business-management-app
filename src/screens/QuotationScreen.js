@@ -2,11 +2,12 @@ import { View, StyleSheet, Text } from "react-native";
 import Header from "../components/Header";
 import ItemRow from "../components/ItemRow";
 import InfoBox from "../components/InfoBox";
+import { Button } from "react-native";
 
 export default function QuotationScreen() {
   const quotationItems = [
-    { name: "Paint", qty: 2, rate: 300 },
-    { name: "Brush", qty: 3, rate: 50 },
+    {name:"Paint", qty:2, rate: 300},
+    {name:"Brush", qty:3, rate: 50},
   ];
 
   const total = quotationItems.reduce(
@@ -17,6 +18,7 @@ export default function QuotationScreen() {
   return (
     <View style={styles.container}>
       <Header title="Quotation" />
+      <Button title="Go Back" onPress={() => navigation.navigate("Dashboard")} color="#cda5e7ff" />
 
       <Text style={styles.note}>* This is an estimate. Tax not included.</Text>
 
@@ -36,11 +38,14 @@ export default function QuotationScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 16,    
+    backgroundColor: "#FFF",
   },
   note: {
-    marginVertical: 8,
-    fontSize: 12,
-    color: "#555",
+    marginVertical: 10,
+    fontSize: 13,        
+    color: "#666",
+    lineHeight: 18,    
   },
 });
+

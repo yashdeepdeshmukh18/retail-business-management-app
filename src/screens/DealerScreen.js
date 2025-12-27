@@ -1,11 +1,13 @@
 import { View, StyleSheet } from "react-native";
 import Header from "../components/Header";
 import InfoBox from "../components/InfoBox";
+import { Button } from "react-native";
 
 export default function DealerScreen() {
   return (
     <View style={styles.container}>
       <Header title="Dealer Payments" />
+      <Button title="Go Back" onPress={() => navigation.navigate("Dashboard")} color="#cda5e7ff" />
 
       <InfoBox label="Dealer Name" value="ABC Traders" />
       <InfoBox label="Total Billed" value="₹12000" />
@@ -17,6 +19,8 @@ export default function DealerScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    flex: 1,
+    padding: 16,            
+    backgroundColor: "#FFF",
   },
 });

@@ -13,10 +13,13 @@ export default function ItemRow({ name, qty, rate }) {
 const styles = StyleSheet.create({
   row: {
     borderBottomWidth: 1,
-    borderColor: "#aaa",
-    paddingVertical: 8,
+    borderBottomColor: "#E0E0E0", 
+    paddingVertical: 10,
   },
   name: {
-    fontWeight: "bold",
+    fontSize: 15,
+    fontWeight: "600",       
+    color: "#333",
   },
 });
+

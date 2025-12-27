@@ -2,6 +2,7 @@ import { View, StyleSheet, Text } from "react-native";
 import Header from "../components/Header";
 import InfoBox from "../components/InfoBox";
 import ItemRow from "../components/ItemRow";
+import { Button } from "react-native";
 
 export default function StockScreen() {
   const stockItems = [
@@ -15,6 +16,7 @@ export default function StockScreen() {
   return (
     <View style={styles.container}>
       <Header title="Stock" />
+      <Button title="Go Back" onPress={() => navigation.navigate("Dashboard") } color="#cda5e7ff" />
 
       <InfoBox label="Total Items" value={stockItems.length} />
       <InfoBox label="Low Stock Items" value={lowStockItems.length} />
@@ -33,11 +35,14 @@ export default function StockScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 16,   
+    backgroundColor: "#FFF",
   },
   warning: {
-    color: "red",
-    fontSize: 12,
-    marginBottom: 6,
+    color: "#D32F2F",  
+    fontSize: 13,
+    marginBottom: 8,
+    fontWeight: "500",
   },
 });
+

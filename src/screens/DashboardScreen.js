@@ -11,18 +11,12 @@ export default function DashboardScreen({ navigation }) {
       <InfoBox label="Pending Amount" value="₹5200" />
       <InfoBox label="Low Stock Items" value="2" />
 
-      <View style={styles.btn}>
-        <Button title="Go to Stock" onPress={() => navigation.navigate("Stock")} />
-      </View>
-
-      <View style={styles.btn}>
-        <Button title="Create Bill" onPress={() => navigation.navigate("Billing")} />
-      </View>
-
+    <View style={styles.btnRow}> 
       <View style={styles.btn}>
         <Button
           title="Customer Pending"
           onPress={() => navigation.navigate("CustomerPending")}
+          color="#8B1FAF"
         />
       </View>
 
@@ -30,6 +24,7 @@ export default function DashboardScreen({ navigation }) {
         <Button
           title="Dealer Payments"
           onPress={() => navigation.navigate("Dealer")}
+          color="#8B1FAF"
         />
       </View>
 
@@ -37,16 +32,10 @@ export default function DashboardScreen({ navigation }) {
         <Button
             title="Create Quotation"
             onPress={() => navigation.navigate("Quotation")}
+            color="#8B1FAF"
         />
         </View>
-
-        <View style={styles.btn}>
-            <Button
-                title="Transactions"
-                onPress={() => navigation.navigate("Transactions")}
-            />
-        </View>
-
+    </View>
 
     </View>
   );
@@ -54,9 +43,29 @@ export default function DashboardScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 16,         
+    backgroundColor: "#FFF",
+    borderRadius: 10, 
   },
   btn: {
-    marginVertical: 5,
+    flex: 1,                    
+    paddingVertical: 12,  
+    marginHorizontal: 4,         
+    backgroundColor: "#8B1FAF", 
+    borderRadius: 6,     
+    alignItems: "center",
+  },
+  btnText: {
+    color: "#FFF",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  btnRow: {
+    flexDirection: "row",        
+    justifyContent: "space-between", 
+    marginVertical: 8,
   },
 });
+
+
+

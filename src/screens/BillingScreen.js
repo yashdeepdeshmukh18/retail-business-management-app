@@ -2,6 +2,10 @@ import { View, StyleSheet, FlatList } from "react-native";
 import Header from "../components/Header";
 import InfoBox from "../components/InfoBox";
 import ItemRow from "../components/ItemRow";
+import { Button } from "react-native";
+
+
+
 
 const billItems = [
   { id: "1", name: "Switch", qty: 2, rate: 120 },
@@ -17,6 +21,7 @@ export default function BillingScreen() {
   return (
     <View style={styles.container}>
       <Header title="Billing" />
+      <Button title="Go Back" onPress={() => navigation.navigate("Dashboard")}  color="#cda5e7ff"/>
 
       <FlatList
         data={billItems}
@@ -37,6 +42,8 @@ export default function BillingScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 16,      
+    backgroundColor: "#FFF",
   },
 });
+

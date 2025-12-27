@@ -12,13 +12,17 @@ export default function InfoBox({ label, value }) {
 const styles = StyleSheet.create({
   box: {
     borderWidth: 1,
-    borderColor: "#999",
-    padding: 10,
-    marginVertical: 6,
-    backgroundColor: "#eeeeee",
+    borderColor: "#DDD",       
+    padding: 12,
+    marginVertical: 8,
+    backgroundColor: "#F5F5F5",
+    borderRadius: 6,           
   },
   value: {
-    fontWeight: "bold",
-    marginTop: 4,
+    fontSize: 15,
+    fontWeight: "600",         
+    marginTop: 6,
+    color: "#333",
   },
 });
+

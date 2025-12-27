@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import Header from "../components/Header";
 import ItemRow from "../components/ItemRow";
+import { Button } from "react-native";
 
 export default function TransactionsScreen() {
   const cashTransactions = [
@@ -15,6 +16,7 @@ export default function TransactionsScreen() {
   return (
     <View style={styles.container}>
       <Header title="Transactions"/>
+      <Button title="Go Back" onPress={() => navigation.navigate("Dashboard")} color="#cda5e7ff"/>
 
       <Text style={styles.section}>Cash Transactions</Text>
       {cashTransactions.map((item, index) => (
@@ -43,15 +45,20 @@ export default function TransactionsScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 16,         
+    backgroundColor: "#FFF",
   },
   section: {
-    marginTop: 12,
-    fontWeight: "bold",
+    marginTop: 16,
+    fontSize: 16,
+    fontWeight: "600",     
+    color: "#333",
   },
   note: {
-    marginTop: 10,
-    fontSize: 12,
-    color: "#555",
+    marginTop: 8,
+    fontSize: 13,
+    color: "#666",
+    lineHeight: 18,
   },
 });
+
